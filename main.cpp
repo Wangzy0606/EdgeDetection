@@ -1,44 +1,37 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-// using namespaces to nullify use of cv::function(); syntax and std::function();
-using namespace std;
-using namespace cv;
- 
+
 int main()
 {
-    // Reading image
-    Mat img = imread("C:/Users/34418/Desktop/EdgeDetectionProject/images/test.jpg");
-    // Display original image
-    imshow("original Image", img);
-    waitKey(0);
- 
-    // Convert to graycsale
-    Mat img_gray;
-    cvtColor(img, img_gray, COLOR_BGR2GRAY);
-    // Blur the image for better edge detection
-    Mat img_blur;
-    GaussianBlur(img_gray, img_blur, Size(3,3), 0);
-     
+    cv::Mat img = cv::imread("C:/Users/34418/Desktop/EdgeDetectionProject/images/test.jpg");
+    cv::imshow("original Image", img);
+    cv::waitKey(0);
+
+    cv::Mat img_gray;
+    cv::cvtColor(img, img_gray, cv::COLOR_BGR2GRAY);
+    cv::Mat img_blur;
+    cv::GaussianBlur(img_gray, img_blur, cv::Size(3, 3), 0);
+
     // Sobel edge detection
-    Mat sobelx, sobely, sobelxy;
-    Sobel(img_blur, sobelx, CV_64F, 1, 0, 5);
-    Sobel(img_blur, sobely, CV_64F, 0, 1, 5);
-    Sobel(img_blur, sobelxy, CV_64F, 1, 1, 5);
+    cv::Mat sobelx, sobely, sobelxy;
+    cv::Sobel(img_blur, sobelx, CV_64F, 1, 0, 5);
+    cv::Sobel(img_blur, sobely, CV_64F, 0, 1, 5);
+    cv::Sobel(img_blur, sobelxy, CV_64F, 1, 1, 5);
+
     // Display Sobel edge detection images
-    imshow("Sobel X", sobelx);
-    waitKey(0);
-    imshow("Sobel Y", sobely);
-    waitKey(0);
-    imshow("Sobel XY using Sobel() function", sobelxy);
-    waitKey(0);
- 
-    // Canny edge detection
-    Mat edges;
-    Canny(img_blur, edges, 100, 200, 3, false);
-    // Display canny edge detected image
-    imshow("Canny edge detection", edges);
-    waitKey(0);
-     
-    destroyAllWindows();
+    cv::imshow("Sobel X", sobelx);
+    cv::waitKey(0);
+    cv::imshow("Sobel Y", sobely);
+    cv::waitKey(0);
+    cv::imshow("Sobel XY using Sobel() function", sobelxy);
+    cv::waitKey(0);
+
+    // Display Canny edge detection images
+    cv::Mat edges;
+    cv::Canny(img_blur, edges, 100, 200, 3, false);
+    cv::imshow("Canny edge detection", edges);
+    cv::waitKey(0);
+
+    cv::destroyAllWindows();
     return 0;
 }
